@@ -1,0 +1,45 @@
+:root {
+    --btn-padding: 12px 20px;
+    --topbar-logo-spacing: 4px;
+    --topbar-logo-padding: 10px;
+}
+
+#topbar-menu {
+    display: flex;
+    flex-direction: row;
+
+    background-color: var(--dark-col-2);
+    border-bottom: var(--border);
+    flex-shrink: 0; 
+    flex-grow: 0;
+    width: 100vw;
+}
+
+#logo-container {
+    padding: var(--topbar-logo-spacing);
+    padding-right: var(--topbar-logo-padding);
+    flex-grow: 0;
+}
+
+#topbar-logo {   
+    height: 100%;
+}
+
+.topbar-button {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+
+    transition: var(--transition-duration);
+    background-color: var(--dark-col-2);
+    font-size: var(--large-font-size);
+    padding: var(--btn-padding);
+    color: var(--light-col-1);
+    font-family: var(--font);
+}
+
+.topbar-button:hover {
+    background-color: var(--elt-col-3);
+}

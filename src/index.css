@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+/*
+Color palette.
+*/
+
+:root {
+    --light-col-1: #fff;
+    --light-col-2: #dedede;
+    --dark-col-1: #121212;
+    --dark-col-2: #282828;
+    --dark-col-3: #3f3f3f;
+    --dark-col-4: #505050;
+    --elt-col-1: #4e5de4;
+    --elt-col-2: #717be9;
+    --elt-col-3: #9ca1ef;
+    --elt-col-4: #c4c6f5;
+    --error-col-1: #ed6a5a;
+    --error-col-2: #ed6b5a1a;
+}
+
+/*
+CSS attributes used in multiple places.
+*/
+
+:root {
+    /* General */
+    --border-thickness: 1px;
+    --transition-duration: 0.3s;
+    --border: var(--border-thickness) solid var(--light-col-1);
+    --border-radius: 5px;--font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+
+    /* Spacing and padding */
+    --small-spacing: 6px;
+    --component-margin: 10px;
+
+    /* Scrollbar */
+    --scr-width: 15px;
+    --scr-shadow: inset 0 0 5px var(--dark-col-1); 
+}
+
+body {
+    background-color: var(--dark-col-1);
+    font-family: var(--font-family);
+    margin: 0px;
+}
+
+#root {
+    overflow: hidden;
+}
+
+p, h1, h2, h3 {
+    color: var(--light-col-1);
+}
+
+a {
+    text-decoration: underline;
+    color: var(--elt-col-3);
+    transition: color var(--transition-duration);
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--elt-col-4);
+}
+
+hr {
+    border: none;
+    height: var(--border-thickness);
+    background-color: var(--light-col-1);
+}
+
+/*
+Ant Design styles.
+*/
+
+.ant-collapse-header {
+    /* This aligns the icons to the text */
+    align-items: center !important;
+}
+
+.ant-select-selection-item {
+    /* This sets the font size to be the same as the page */
+    font-size: 1rem;
+}
+
+/*
+Scrollbar styles.
+*/
+
+::-webkit-scrollbar { 
+    width: var(--scr-width);
+    border-radius: var(--scr-width);
+}
+  
+::-webkit-scrollbar-track {
+    background-color: var(--light-col-1);
+    box-shadow: var(--scr-shadow);
+    border-radius: var(--scr-width);
+}
+  
+::-webkit-scrollbar-thumb {
+    background-color: var(--elt-col-1); 
+    border-radius: var(--scr-width);
+}
+
+::-webkit-scrollbar-thumb:hover { 
+    background-color: var(--elt-col-3); 
+}

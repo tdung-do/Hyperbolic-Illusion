@@ -1,0 +1,38 @@
+:root {
+    --num-swatches: 8;
+    --swatch-spacing: 5px;
+    --btn-size: 50px;
+    --initial-opacity: 0.6;
+}
+
+.color-picker {
+    display: grid;
+
+    grid-template-columns: repeat(var(--num-swatches), 1fr);
+    background-color: var(--dark-col-2);
+    border-radius: var(--border-radius);
+    grid-gap: var(--swatch-spacing);
+    padding: var(--swatch-spacing);
+    border: var(--border);
+}
+
+.color-picker-btn {
+    display: inline-block;
+    border: none;
+
+    box-shadow: inset 0px 0px 0px var(--border-thickness) var(--light-col-1);
+    transition: var(--transition-duration);
+    border-radius: var(--border-radius);
+    opacity: var(--initial-opacity);
+    aspect-ratio: 1;
+    padding: 0px;
+    width: 100%;
+}
+
+.color-picker-btn:hover, .color-picker-btn.focused {
+    opacity: 1;
+}
+
+.color-picker-btn.focused {
+    box-shadow: inset 0px 0px 0px 3px var(--light-col-1);
+}

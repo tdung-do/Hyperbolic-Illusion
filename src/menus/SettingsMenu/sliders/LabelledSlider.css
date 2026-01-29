@@ -1,0 +1,29 @@
+:root {
+    --slider-width: 80%;
+    --lbl-padding: 5px;
+}
+
+.slider-parent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-bottom: var(--component-margin);
+}
+
+.slider-container {
+    width: var(--slider-width)
+}
+
+.slider-label {
+    text-align: center;
+    
+    margin-left: var(--component-margin);
+    border-radius: var(--border-radius);
+    background-color: var(--dark-col-3);
+    padding: var(--lbl-padding);
+    color: var(--light-col-1);
+    border: var(--border);
+    flex-shrink: 1;
+    flex-grow: 1;
+}

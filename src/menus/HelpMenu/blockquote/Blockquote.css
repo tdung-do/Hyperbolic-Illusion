@@ -1,0 +1,38 @@
+:root {
+    --blockquote-bg: #717be91a;
+    --blockquote-padding: 20px;
+    --blockquote-border: 6px;
+    --quote-size: 70px;
+    --quote-margin: -50px;
+}
+
+blockquote {
+    box-sizing: border-box;
+    
+    border-left-width: var(--blockquote-border);
+    padding-left: var(--blockquote-padding);
+    padding-right: var(--blockquote-padding);
+    background-color: var(--blockquote-bg);
+    border-radius: var(--border-radius);
+    border: var(--border);
+    margin: 0px;
+}
+
+blockquote::before {
+    display: block;
+    font-family: serif;
+
+    content: "\201c";
+    color: var(--light-col-1);
+    font-size: var(--quote-size);
+    margin-bottom: var(--quote-margin);
+}
+
+.blockquote-text {
+    font-style: italic;
+}
+
+.blockquote-attr {
+    text-align: right;
+    font-weight: bold;
+}

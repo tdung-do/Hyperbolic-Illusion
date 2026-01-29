@@ -1,0 +1,14 @@
+.toggle-parent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.toggle-parent:not(:last-child) {
+    padding-bottom: var(--small-spacing);
+}
+
+.toggle-label {
+    margin-left: var(--component-margin);
+    color: var(--light-col-1);
+}

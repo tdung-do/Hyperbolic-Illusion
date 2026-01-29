@@ -1,0 +1,81 @@
+:root {
+    --bg-blur-amt: 1.5px;
+    --logo-size: 4.5em;
+    --logo-gap: 10px;
+    --error-div-width: 50vw;
+    --error-div-height: 70vh;
+}
+
+#error-div {
+    position: absolute;
+    display: none;
+
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    z-index: 1000;
+    background: var(--dark-col-1);
+}
+
+@media (max-width: 767px) {
+    #error-div {
+        display: block;
+    }
+}
+
+#error-bg {
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("error-bg.png");
+    -webkit-filter: blur(var(--bg-blur-amt));
+            filter: blur(var(--bg-blur-amt));
+}
+
+#error-center {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin: auto;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    max-width: var(--error-div-width);
+    max-height: var(--error-div-height);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background: var(--dark-col-2);
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: var(--logo-gap);
+}
+
+#logo-div {
+    text-align: center;
+
+    width: 100%;
+    border-bottom: var(--border);
+}
+
+#logo {
+    width: var(--logo-size);
+    height: var(--logo-size);
+    padding-bottom: var(--logo-gap);
+}

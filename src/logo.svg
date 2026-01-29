@@ -1,0 +1,16 @@
+<svg viewBox="-130 -130 260 260" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<!-- This was generated using a Lua program that I wrote. -->
+	<circle cx="0" cy="0" r="125" stroke="#fff" stroke-width="8px" fill="#282828" />
+	<path d="M -69.486621 0
+		A 132.171408 132.171408 0 0 1 -21.472547 66.085704
+		A 132.171408 132.171408 0 0 1 56.215857 40.843211
+		A 132.171408 132.171408 0 0 1 56.215857 -40.843211
+		A 132.171408 132.171408 0 0 1 -21.472547 -66.085704
+		A 132.171408 132.171408 0 0 1 -69.486621 0
+		z" stroke="none" stroke-width="8px" fill="#9ca1ef" />
+	<path d="M -122.867994 -22.988171 A 132.171408 132.171408 0 0 1 -16.105248 123.958142" stroke="#fff" stroke-width="8px" fill="none" />
+	<path d="M -59.831348 109.750671 A 132.171408 132.171408 0 0 1 112.914403 53.622174" stroke="#fff" stroke-width="8px" fill="none" />
+	<path d="M 85.890187 90.817816 A 132.171408 132.171408 0 0 1 85.890187 -90.817816" stroke="#fff" stroke-width="8px" fill="none" />
+	<path d="M 112.914403 -53.622174 A 132.171408 132.171408 0 0 1 -59.831348 -109.750671" stroke="#fff" stroke-width="8px" fill="none" />
+	<path d="M -16.105248 -123.958142 A 132.171408 132.171408 0 0 1 -122.867994 22.988171" stroke="#fff" stroke-width="8px" fill="none" />
+</svg>
