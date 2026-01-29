@@ -42,7 +42,7 @@ const items = [
     {
         key: "help5",
         label: "Who made this?",
-        children: <p>Hyperbolic Illusion was written by <a href="https://cs.uwaterloo.ca/~bdo/" target="_blank" rel="noreferrer">Tuan Dung Do</a>. Hyperbolic Illusion is built using React, employing Three.js and WebGL to render the tiling, and Ant Design for the UI. See <a href="https://github.com/tdung-do/hyperbolicIllusion" target="_blank" rel="noreferrer">the source code</a> on GitHub.</p>
+        children: <p>Hyperbolic Illusion was written by <a href="https://cs.uwaterloo.ca/~bdo/" target="_blank" rel="noreferrer">Tuan Dung Do</a>. Hyperbolic Illusion is built using React, employing Three.js and WebGL to render the tiling, and Ant Design for the UI. See <a href="https://github.com/tdung-do/Hyperbolic-Illusion" target="_blank" rel="noreferrer">the source code</a> on GitHub.</p>
     }
 ];
 
@@ -59,7 +59,6 @@ function HelpMenu(props) {
                     I could be bounded in a nutshell and count myself a king of infinite space.
                 </Blockquote> */}
                 <p>Welcome to Hyperbolic Illusion, a web-based exploring tool for visual illusions in the hyperbolic plane.</p>
-                {/* <p>See <a href="https://github.com/tdung-do/hyperbolicIllusion" target="_blank" rel="noreferrer">the source code</a> on GitHub.</p> */}
                 <Collapse items={items} />
                 <p>This is an adaptation of <a href="https://curvascope.zenzicubic.dev/" target="_blank" rel="noreferrer">Curvascope</a> by <a href="https://zenzicubic.dev" target="_blank" rel="noreferrer">Zenzicubic</a>.</p>
             </Drawer>
