@@ -64,7 +64,7 @@ function TilingSelector() {
     }, [params]);
 
     return (<>
-        <h3>Tiling</h3>
+        <h2>Tiling</h2>
         <LabelledSlider 
             lbl="Number of Sides" 
             min={3} max={maxSides} value={params[0].pValue}
@@ -85,9 +85,9 @@ function TilingSelector() {
                 type="error" />
         ) }
         <hr/>
-        <p>Illusion presets:</p>
+        <h2>Illusion preset</h2>
         <LabelledToggle
-            lbl="Rotating Snakes illusion" toggled={params[0].doSnake}
+            lbl="Kitaoka's Rotating Snakes illusion" toggled={params[0].doSnake}
             onChange={(toggled) =>
                 params[1]({
                     ...params[0],
@@ -114,7 +114,7 @@ function TilingSelector() {
         />
         {params[0].doSnake && (
             <>
-                <p>Rotating Snakes Parameters</p>
+                <h3>Kitaoka's Rotating Snakes Parameters</h3>
 
                 <LabelledSlider
                     lbl="Exponential Ratio (Rings)"
@@ -160,16 +160,17 @@ function TilingSelector() {
 
         <div style={{ marginBottom: "var(--small-spacing)" }}>
         <Button
-            type={"primary"} size="medium"
+            type={"primary"} size="large"
             onClick={() => 
                 params[1]({
                     ...params[0],
                     ...setPVal(4),
                     ...setQVal(6),
-                    ...generateTilingParams(4, 6, eThickVal),
+                    ...setEThickVal(0.02),
+                    ...generateTilingParams(4, 6, 0.02),
                     pValue: 4,
                     qValue: 6,
-                    
+                    eThickness: 0.02,
 
                     modelIdx: 0,
 
@@ -192,13 +193,13 @@ function TilingSelector() {
                 })
             }
         >
-            Primrose's Field illusion
+            Kitaoka's Primrose Field illusion
         </Button>
         </div>
 
         <div style={{ marginBottom: "var(--small-spacing)" }}>
         <Button
-            type={"primary"} size="medium"
+            type={"primary"} size="large"
             onClick={() => 
                 params[1]({
                     ...params[0],
@@ -239,7 +240,7 @@ function TilingSelector() {
 
         <div style={{ marginBottom: "var(--small-spacing)" }}>
         <Button
-            type={"primary"} size="medium"
+            type={"primary"} size="large"
             onClick={() => 
                 params[1]({
                     ...params[0],
@@ -279,14 +280,14 @@ function TilingSelector() {
         
 
         <hr />
-        <h3>Edges</h3>
+        <h2>Edge</h2>
         <LabelledToggle
-            lbl="Show Polygon Edges" toggled={params[0].doEdges} 
+            lbl="Show Edges" toggled={params[0].doEdges} 
             onChange={(toggled) => params[1]({...params[0], doEdges: toggled})} 
         />
         {params[0].doEdges && (
             <LabelledSlider 
-            lbl="Edge Thickness and Vertex Size" 
+            lbl="Edge Thickness" 
             min={0.005} max={0.145} step={0.005} value={params[0].eThickness}
             onChange={(val) => { 
                 setEThickVal(val);
@@ -296,13 +297,13 @@ function TilingSelector() {
         {params[0].doEdges && (
             <>
                 <LabelledToggle
-                    lbl="Edge a" toggled={params[0].doV1V2} 
+                    lbl="Show Edge a" toggled={params[0].doV1V2} 
                     onChange={(toggled) => params[1]({...params[0], doV1V2: toggled})} />
                 <LabelledToggle
-                    lbl="Edge b" toggled={params[0].doV0V1} 
+                    lbl="Show Edge b" toggled={params[0].doV0V1} 
                     onChange={(toggled) => params[1]({...params[0], doV0V1: toggled})} />
                 <LabelledToggle
-                    lbl="Edge c" toggled={params[0].doV2V0} 
+                    lbl="Show Edge c" toggled={params[0].doV2V0} 
                     onChange={(toggled) => params[1]({...params[0], doV2V0: toggled})} />   
                 <p>Edge Color</p>
                 <ColorPicker 
@@ -311,6 +312,83 @@ function TilingSelector() {
             </>
         )}
         <hr />
+        <h2>Vertex</h2>
+        <LabelledToggle
+            lbl="Show Circular Vertices" toggled={params[0].doVerts} 
+            onChange={(toggled) => params[1](
+                {...params[0], 
+                doVerts: toggled,
+                doOrns: toggled ? false : params[0].doOrns,
+                doInvVerts: toggled ? params[0].doInvVerts : false})} 
+        /> 
+
+        {params[0].doVerts && (
+            <>
+                <p>Vertex Color</p>
+                <ColorPicker 
+                    selIdx={params[0].vertColIdx} 
+                    onChange={(idx) => params[1]({...params[0], vertColIdx: idx})}/>
+            </>
+        )}   
+
+        {params[0].doVerts && (
+            <LabelledSlider 
+            lbl="Vertex Size" 
+            min={0.005} max={0.145} step={0.005} value={params[0].eThickness}
+            onChange={(val) => { 
+                setEThickVal(val);
+                setValues(pVal, qVal, val);
+            }} />
+        )} 
+
+        <LabelledToggle
+            lbl="Show Ornamented Vertices" toggled={params[0].doOrns} 
+            onChange={(toggled) => params[1](
+                {...params[0], 
+                doOrns: toggled,
+                doVerts: toggled ? false : params[0].doVerts,
+                doInvVerts: toggled ? params[0].doInvVerts : false}
+            )} 
+        />
+        {params[0].doOrns && (
+            <>
+                <p>Vertex Color</p>
+                <ColorPicker 
+                    selIdx={params[0].vertColIdx} 
+                    onChange={(idx) => params[1]({...params[0], vertColIdx: idx})}/>
+            </>
+        )}   
+
+        {params[0].doOrns && (
+            <LabelledSlider 
+            lbl="Vertex Size" 
+            min={0.005} max={0.145} step={0.005} value={params[0].eThickness}
+            onChange={(val) => { 
+                setEThickVal(val);
+                setValues(pVal, qVal, val);
+            }} />
+        )} 
+
+        {(params[0].doVerts || params[0].doOrns) && (
+            <LabelledToggle
+                lbl="Show Primrose Field Style Colored Vertices" toggled={params[0].doInvVerts} 
+                onChange={(toggled) => params[1](
+                    {...params[0], 
+                    doInvVerts: toggled}
+                )} 
+            />
+        )}
+        {params[0].doInvVerts && (
+            <>
+                <p>Second Vertex Color</p>
+                <ColorPicker 
+                    selIdx={params[0].invVertColIdx} 
+                    onChange={(idx) => params[1]({...params[0], invVertColIdx: idx})}/>
+                <hr />
+            </>
+        )}
+        
+        <hr />   
     </>);
 }
 
@@ -322,64 +400,15 @@ function AppearanceMenu() {
     const params = useContext(ParamContext);    
     return (
         <>
-            <h3>Additional Appearance</h3>
-            <p>Model:</p>
+            <h2>Additional Appearance</h2>
+            <h3>Model</h3>
             <Select 
                 defaultValue={params[0].modelIdx} style={{ 
                     width: "100%", 
                     marginBottom: "var(--small-spacing)" }}
                 options={modelNames} onChange={(val) => params[1]({...params[0], modelIdx: val})} />
-            <p>Vertices:</p>
-            <LabelledToggle
-                lbl="Circular Vertices" toggled={params[0].doVerts} 
-                onChange={(toggled) => params[1](
-                    {...params[0], 
-                    doVerts: toggled,
-                    doOrns: toggled ? false : params[0].doOrns})} 
-            />
-            {params[0].doVerts && (
-                <>
-                    <p>Vertex Color</p>
-                    <ColorPicker 
-                        selIdx={params[0].vertColIdx} 
-                        onChange={(idx) => params[1]({...params[0], vertColIdx: idx})}/>
-                    <hr />   
-                </>
-            )}    
 
-            <LabelledToggle
-                lbl="Ornamented Vertices" toggled={params[0].doOrns} 
-                onChange={(toggled) => params[1](
-                    {...params[0], 
-                    doOrns: toggled,
-                    doVerts: toggled ? false : params[0].doVerts}
-                )} 
-            />
-            {params[0].doOrns && (
-                <>
-                    <p>Vertex Color</p>
-                    <ColorPicker 
-                        selIdx={params[0].vertColIdx} 
-                        onChange={(idx) => params[1]({...params[0], vertColIdx: idx})}/>
-                    <hr />   
-                </>
-            )}    
-
-            <LabelledToggle
-                lbl="Color-inverted Vertices" toggled={params[0].doInvVerts} 
-                onChange={(toggled) => params[1]({...params[0], doInvVerts: toggled})} 
-            />
-            {params[0].doInvVerts && (
-                <>
-                    <p>Invert Vertex Color</p>
-                    <ColorPicker 
-                        selIdx={params[0].invVertColIdx} 
-                        onChange={(idx) => params[1]({...params[0], invVertColIdx: idx})}/>
-                    <hr />
-                </>
-            )}
-
-            <p>Polygons:</p>
+            <h3>Polygon</h3>
             <LabelledToggle
                 lbl="Use Static Polygon Color" toggled={params[0].doSolidColor} 
                 onChange={(toggled) => params[1](
@@ -399,7 +428,7 @@ function AppearanceMenu() {
             )}
 
             <LabelledToggle
-                lbl="Color-inverted Polygon" toggled={params[0].doInvPol} 
+                lbl="Checkerboard-colored Polygon" toggled={params[0].doInvPol} 
                 onChange={(toggled) => params[1](
                     {...params[0], 
                     doInvPol: toggled,
@@ -407,7 +436,7 @@ function AppearanceMenu() {
             />
             {params[0].doInvPol && (
                 <>
-                    <p>Invert Polygon Color</p>
+                    <p>Second Polygon Color</p>
                     <ColorPicker 
                         selIdx={params[0].invPolygonColIdx} 
                         onChange={(idx) => params[1]({...params[0], invPolygonColIdx: idx})}/>
@@ -416,7 +445,7 @@ function AppearanceMenu() {
             )}
 
             <LabelledToggle
-                lbl="Show Triangles" toggled={params[0].doParity} 
+                lbl="Show Embedded Triangles" toggled={params[0].doParity} 
                 onChange={(toggled) => params[1]({...params[0], doParity: toggled})} />
             
 
@@ -435,7 +464,7 @@ This is the Rendering section of the settings menu.
 function RenderingMenu() {
     const params = useContext(ParamContext);   
     return (<>
-        <h3>Rendering</h3>
+        <h2>Rendering</h2>
         <LabelledSlider 
             lbl="Number of Iterations" min={20} max={100} value={params[0].nIterations}
             onChange={(val) => params[1]({...params[0], nIterations: val})} />
