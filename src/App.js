@@ -81,10 +81,10 @@ function App() {
         doSnake: false,
 
         expRatioRings: 0.115,
-        ringLayerNum: 30.0,
+        ringLayerNum: 30,
         centerCutoff: 0.05,
-        nRepeatPerSectV0: 2.0,
-        nRepeatPerSectV2: 2.0,
+        nRepeatPerSectV0: 2,
+        nRepeatPerSectV2: 2,
 
         polygonColIdx: 0,
         invPolygonColIdx: 8,

@@ -206,7 +206,7 @@ bool isInsideTriangle(vec2 p, vec2 a, vec2 b, vec2 c)
     return (alpha >= 0.0 && beta >= 0.0 && gamma >= 0.0);
 }
 
-vec3 rotatingSnakeColor(vec2 p, float R, float oddParity, float nRepeats, float thetaMax) {
+vec3 rotatingSnakeColor(vec2 p, float R, float oddParity, float nRepeats, float thetaMax, bool front) {
     float r = length(p) / R;
 
     // Nonlinear radial warp
@@ -215,12 +215,21 @@ vec3 rotatingSnakeColor(vec2 p, float R, float oddParity, float nRepeats, float 
     float rf = pow(fract(rr), 1.0 / 1.5);
 
     // Compute angular phase that repeats nRepeats times over thetaMax
-    float ang = atan(p.y, p.x);           
-    ang = ang / thetaMax * nRepeats * 2.; 
+    float ang;           
+    float angRat;
 
-    ang += ring - thetaMax/nRepeats/3.5; // radial phase shift
+    if (front) {
+        ang = atan(p.y, p.x);
+    }
+    else {
+        vec2 V0_shifted = shift(V0, V2);
+        ang = atan(-p.y, -p.x) - atan(-V0_shifted.y,-V0_shifted.x); 
+    }
+    
+    angRat = ang / thetaMax * nRepeats * 2.; 
+    angRat += ring - 0.125; // radial phase shift
 
-    float phase = fract(ang);
+    float phase = fract(angRat);
 
     // Snake body mask
     float d = length(vec2(phase * 1.25, rf) - vec2(0.5)) - 0.5;
@@ -230,13 +239,13 @@ vec3 rotatingSnakeColor(vec2 p, float R, float oddParity, float nRepeats, float 
         col = mix(
             vec3(0.825, 0.825, 0.0),   // yellow
             vec3(0.0, 0.399, 1.0),     // blue
-            step(mod(ang + oddParity, 2.0), 1.0)
+            step(mod(angRat + oddParity, 2.0), 1.0)
         );
     } else {
         col = mix(
             vec3(0.0),
             vec3(1.0),
-            step(mod(ang + 0.535, 2.0), 1.0)
+            step(mod(angRat + 0.535, 2.0), 1.0)
         );
     }
     return col;
@@ -447,14 +456,12 @@ vec3 tilingSample(vec2 pt) {
         if (r <= R0) {
             if (length(z) <= centerCutoff*R0) return bgCol;
             // Snake centered at V0
-            return brt * rotatingSnakeColor(z, R0, odd, nRepeatPerSectV0, PI/pValue);
+            return brt * rotatingSnakeColor(z, R0, odd, nRepeatPerSectV0, PI/pValue, true);
         } else {
             // Outside → re-center snake at V2
-            z = shift(z, V2);
-            vec3 tmp = brt * rotatingSnakeColor(z, R0, odd, nRepeatPerSectV2, PI/qValue);
-            if (length(z) <= centerCutoff*R0) tmp = bgCol;
-            z = shift(z, -V2);
-            return tmp;
+            vec2 z_shifted = shift(z, V2);
+            if (length(z_shifted) <= centerCutoff*R0) return bgCol;
+            return brt * rotatingSnakeColor(z_shifted, R0, odd, nRepeatPerSectV2, PI/qValue, false);
         }
     }
 
