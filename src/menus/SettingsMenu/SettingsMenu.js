@@ -61,8 +61,8 @@ function TilingSelector() {
             pValue: p,
             qValue: q,
             eThickness: edgeThickness,
-            doForeRev: q % 2 ? false : params[0].doForeRev ,
-            doBackRev: p % 2 ? false : params[0].doBackRev});
+            doForeRev: q % 2 ? true : params[0].doForeRev ,
+            doBackRev: p % 2 ? true : params[0].doBackRev});
     }, [params]);
 
     return (<>
@@ -112,8 +112,8 @@ function TilingSelector() {
                     doSolidColor: true,
                     doSnake: toggled,
 
-                    doForeRev: toggled ? true : params[0].doForeRev,
-                    doBackRev: toggled ? true : params[0].doBackRev,
+                    doForeRev: toggled ? false : params[0].doForeRev,
+                    doBackRev: toggled ? false : params[0].doBackRev,
                     expRatioRings: toggled ? 0.115 : params[0].expRatioRings,
                     ringLayerNum: toggled ? 30 : params[0].ringLayerNum,
                     centerCutoff: toggled ? 0.05 : params[0].centerCutoff,
