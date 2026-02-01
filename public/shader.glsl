@@ -36,6 +36,8 @@ uniform bool doParity;
 uniform bool doInvPol;
 
 uniform bool doSnake;
+uniform bool doForeRev;
+uniform bool doBackRev;
 uniform float expRatioRings;
 uniform float ringLayerNum;
 uniform float centerCutoff;
@@ -89,6 +91,8 @@ uniform float newThickEdge01CircleRadius;        // 👈 new line
 
 
 out vec4 outputCol;
+
+
 
 // #define BG_COLOR vec3(.07)
 #define THICKNESS .05
@@ -224,11 +228,12 @@ vec3 rotatingSnakeColor(vec2 p, float R, float oddParity, float nRepeats, float 
     else {
         vec2 V0_shifted = shift(V0, V2);
         ang = atan(-p.y, -p.x) - atan(-V0_shifted.y,-V0_shifted.x); 
+        
     }
     
     angRat = ang / thetaMax * nRepeats * 2.; 
-    angRat += ring - 0.125; // radial phase shift
-
+    angRat += ring - 0.125 -1.; // radial phase shift
+    
     float phase = fract(angRat);
 
     // Snake body mask
@@ -237,14 +242,14 @@ vec3 rotatingSnakeColor(vec2 p, float R, float oddParity, float nRepeats, float 
     vec3 col;
     if (d <= 0.0) {
         col = mix(
-            vec3(0.825, 0.825, 0.0),   // yellow
-            vec3(0.0, 0.399, 1.0),     // blue
+            vec3(229., 229., 0.) / 255.,        // yellow
+            vec3(19., 121., 255.) / 255.,       // blue
             step(mod(angRat + oddParity, 2.0), 1.0)
         );
     } else {
         col = mix(
-            vec3(0.0),
-            vec3(1.0),
+            vec3(0.0),              // black
+            vec3(1.0),              // white
             step(mod(angRat + 0.535, 2.0), 1.0)
         );
     }
@@ -274,6 +279,8 @@ vec3 tilingSample(vec2 pt) {
     float n = 0.;
 
     float a = 0.;
+    float b = 0.;
+    float c = 0.;
 
     float col0 = 0.;
     float col1 = 0.;
@@ -294,6 +301,7 @@ vec3 tilingSample(vec2 pt) {
             a++;
             pol_col++;
             col0++;
+            c++;
         }
 
         // Sectional line (polVertex-to-polCenter edge)
@@ -303,6 +311,8 @@ vec3 tilingSample(vec2 pt) {
             z -= 2. * dotProd * refNrm;
             n ++;
             col1++;
+            b++;
+            c++;
         }
 
         // Edge bisector (polCenter-to-polEdgeCenter edge)
@@ -312,6 +322,7 @@ vec3 tilingSample(vec2 pt) {
             n ++;
             pol_col++;
             col2++;
+            b++;
         }
         
         if (fund) break; // We are in the fundamental domain; no need to keep going
@@ -450,18 +461,20 @@ vec3 tilingSample(vec2 pt) {
         float r  = length(z);
 
         // parity from reflections (illusion enhancement)
-        float odd = mod(n, 2.0);
+        float oddN = mod(n, 2.0);
 
         // --- center selection ---
         if (r <= R0) {
-            if (length(z) <= centerCutoff*R0) return bgCol;
+            if (length(z) <= centerCutoff*R0) return vec3(0.0);
             // Snake centered at V0
-            return brt * rotatingSnakeColor(z, R0, odd, nRepeatPerSectV0, PI/pValue, true);
+            return brt * rotatingSnakeColor(z, R0, doForeRev ? oddN : mod(b, 2.0), nRepeatPerSectV0, PI/pValue, true);
         } else {
             // Outside → re-center snake at V2
             vec2 z_shifted = shift(z, V2);
-            if (length(z_shifted) <= centerCutoff*R0) return bgCol;
-            return brt * rotatingSnakeColor(z_shifted, R0, odd, nRepeatPerSectV2, PI/qValue, false);
+            vec2 V1_shifted = shift(V1, V2);
+            float R2 = length(V1_shifted);
+            if (length(z_shifted) <= centerCutoff*R2) return vec3(0.0);
+            return brt * rotatingSnakeColor(z_shifted, R2, doBackRev ? oddN : mod(c, 2.0), nRepeatPerSectV2, PI/qValue, false);
         }
     }
 

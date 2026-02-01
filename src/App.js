@@ -26,7 +26,7 @@ const ZERO = new Complex(0, 0);
 // Lists of parameters to share and copy
 const sharedParams = ["modelIdx", "doEdges", "doVerts", "doParity",  "doSolidColor", "pValue", "qValue", 
                         "eThickness", "doInvPol", "doInvVerts", "doOrns", 
-                        "doSnake", "expRatioRings", "ringLayerNum", "centerCutoff", "nRepeatPerSectV0", "nRepeatPerSectV2",
+                        "doSnake", "expRatioRings", "ringLayerNum", "centerCutoff", "nRepeatPerSectV0", "nRepeatPerSectV2", "doForeRev", "doBackRev",
                         "doV0V1", "doV1V2", "doV2V0",
                         "polygonColIdx", "invPolygonColIdx", "edgeColIdx", "vertColIdx", "invVertColIdx", "bgColIdx",
                         "preciseEdges", "V0", "V1", "V2", "D", "E", "D1", "E1", "D1p", "E1p", "D2", "E2",
@@ -41,7 +41,7 @@ const sharedParams = ["modelIdx", "doEdges", "doVerts", "doParity",  "doSolidCol
                         "newThickEdge01CircleCenter", "newThickEdge01CircleRadius"];
 const uniformNames = ["doEdges", "doVerts", "doParity", "doSolidColor", "modelIdx", "nIterations", "invRad", "nSamples", 
                         "eThickness", "doInvPol", "doInvVerts", "doOrns", "pValue", "qValue",
-                        "doSnake", "expRatioRings", "ringLayerNum", "centerCutoff", "nRepeatPerSectV0", "nRepeatPerSectV2",
+                        "doSnake", "expRatioRings", "ringLayerNum", "centerCutoff", "nRepeatPerSectV0", "nRepeatPerSectV2", "doForeRev", "doBackRev",
                         "doV0V1", "doV1V2", "doV2V0",
                         "preciseEdges", "V0", "V1", "V2", "D", "E", "D1", "E1", "D1p", "E1p", "D2", "E2",
                         "triV0EnlargedCircleCenter", "triV0EnlargedCircleRadius",
@@ -80,6 +80,8 @@ function App() {
         doSolidColor: true,
         doSnake: false,
 
+        doForeRev: false,
+        doBackRev: false,
         expRatioRings: 0.115,
         ringLayerNum: 30,
         centerCutoff: 0.05,
@@ -140,6 +142,8 @@ function App() {
         doInvPol: {value: false},
         doSnake: {value: false},
 
+        doForeRev: {value: false},
+        doBackRev: {value: false},
         expRatioRings: {value: 0.115},
         ringLayerNum: {value: 30.0},
         centerCutoff: {value: 0.05},

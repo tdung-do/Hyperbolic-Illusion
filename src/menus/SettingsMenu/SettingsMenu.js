@@ -60,7 +60,9 @@ function TilingSelector() {
             ...generateTilingParams(p, q, edgeThickness),
             pValue: p,
             qValue: q,
-            eThickness: edgeThickness});
+            eThickness: edgeThickness,
+            doForeRev: q % 2 ? false : params[0].doForeRev ,
+            doBackRev: p % 2 ? false : params[0].doBackRev});
     }, [params]);
 
     return (<>
@@ -91,11 +93,11 @@ function TilingSelector() {
             onChange={(toggled) =>
                 params[1]({
                     ...params[0],
-                    ...setPVal(5),
-                    ...setQVal(5),
-                    ...generateTilingParams(5, 5, eThickVal),
-                    pValue: 5,
-                    qValue: 5,
+                    ...setPVal(4),
+                    ...setQVal(6),
+                    ...generateTilingParams(4, 6, eThickVal),
+                    pValue: 4,
+                    qValue: 6,
 
                     modelIdx: 0,
 
@@ -108,7 +110,15 @@ function TilingSelector() {
                     doParity: false,
                     
                     doSolidColor: true,
-                    doSnake: toggled
+                    doSnake: toggled,
+
+                    doForeRev: toggled ? true : params[0].doForeRev,
+                    doBackRev: toggled ? true : params[0].doBackRev,
+                    expRatioRings: toggled ? 0.115 : params[0].expRatioRings,
+                    ringLayerNum: toggled ? 30 : params[0].ringLayerNum,
+                    centerCutoff: toggled ? 0.05 : params[0].centerCutoff,
+                    nRepeatPerSectV0: toggled ? 2 : params[0].nRepeatPerSectV0,
+                    nRepeatPerSectV2: toggled ? 2 : params[0].nRepeatPerSectV2,
                 })
             }
         />
@@ -116,6 +126,19 @@ function TilingSelector() {
             <>
                 <h3>Kitaoka's Rotating Snakes Parameters</h3>
 
+                {!(params[0].qValue % 2) && (
+                    <LabelledToggle
+                    lbl="Foreground uniform rotation direction" toggled={params[0].doForeRev} 
+                    onChange={(toggled) => params[1]({...params[0], doForeRev: toggled})} />
+                )}
+                
+                {!(params[0].pValue % 2) && (
+                    <LabelledToggle
+                    lbl="Background uniform rotation direction" toggled={params[0].doBackRev} 
+                    onChange={(toggled) => params[1]({...params[0], doBackRev: toggled})} />
+                )}
+                
+                
                 <LabelledSlider
                     lbl="Exponential Ratio (Rings)"
                     min={0.005} max={2.0} step={0.005} value={params[0].expRatioRings}
