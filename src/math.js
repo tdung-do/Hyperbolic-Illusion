@@ -203,21 +203,6 @@ const generateTilingParams = (p, q, edgeThickness) => {
     let { center: newThickEdge20CircleCenter, 
         radius: newThickEdge20CircleRadius } = circleFrom3Points(P1, P2, newM20);
     
-
-    // DONE! (CHECK THE REORDERING THING)
-    // let { center: newThickEdge01CircleCenter, 
-    //     radius: newThickEdge01CircleRadius } = circleFrom3Points(P1, P2, M_thickPoint);
-
-    // newThickEdge01CircleCenter = applyMobiusTrans(MMap01, newThickEdge01CircleCenter, true);
-    // newThickEdge01CircleRadius = (newThickEdge01CircleCenter.sub(P2)).getNorm();
-
-    // let { center: newThickEdge12CircleCenter, 
-    //     radius: newThickEdge12CircleRadius } = circleFrom3Points(P1, P2, M_thickPoint);
-
-    // newThickEdge12CircleCenter = applyMobiusTrans(MMap12, newThickEdge12CircleCenter, true);
-    // newThickEdge12CircleRadius = (newThickEdge12CircleCenter.sub(P1)).getNorm();
-
-    
     // Find the enlarged circle at triV0
     // Intersections of thick edge 20 circle with thick edge 01 circle
     let thickEdgeIntersection_20_01 =
@@ -227,7 +212,17 @@ const generateTilingParams = (p, q, edgeThickness) => {
             newThickEdge01CircleCenter,
             newThickEdge01CircleRadius
         ).filter(p => isInsideTriangle(p, V0, V1, V2))[0];
-
+    
+    if (!thickEdgeIntersection_20_01) {
+        thickEdgeIntersection_20_01 =
+        circleCircleIntersections(
+            newThickEdge20CircleCenter,
+            newThickEdge20CircleRadius,
+            newThickEdge01CircleCenter,
+            newThickEdge01CircleRadius
+        )[0];
+    }
+    
     // Compute circle enlarged triV0
     let { center: triV0EnlargedCircleCenter, 
         radius: triV0EnlargedCircleRadius } = enlargedCircleAtPoint(thickEdgeIntersection_20_01,
@@ -244,6 +239,16 @@ const generateTilingParams = (p, q, edgeThickness) => {
             newThickEdge12CircleCenter,
             newThickEdge12CircleRadius
         ).filter(p => isInsideTriangle(p, V0, V1, V2))[0];
+    
+    if (!thickEdgeIntersection_01_12) {
+        thickEdgeIntersection_01_12 =
+        circleCircleIntersections(
+            newThickEdge01CircleCenter,
+            newThickEdge01CircleRadius,
+            newThickEdge12CircleCenter,
+            newThickEdge12CircleRadius
+        )[0]
+    }
 
     // Compute circle enlarged triV1
     let { center: triV1EnlargedCircleCenter, 
@@ -262,6 +267,15 @@ const generateTilingParams = (p, q, edgeThickness) => {
             newThickEdge20CircleRadius
         ).filter(p => isInsideTriangle(p, V0, V1, V2))[0];
 
+    if (!thickEdgeIntersection_12_20) {
+        thickEdgeIntersection_12_20 =
+        circleCircleIntersections(
+            newThickEdge12CircleCenter,
+            newThickEdge12CircleRadius,
+            newThickEdge20CircleCenter,
+            newThickEdge20CircleRadius
+        )[0];
+    }
 
     // Compute circle enlarged at V2
     let { center: triV2EnlargedCircleCenter, 
@@ -319,8 +333,6 @@ const generateTilingParams = (p, q, edgeThickness) => {
     let D2 = applyMobiusTrans(MMap2, new Complex(-D.x, D.y), true);
     let E2 = applyMobiusTrans(MMap2, tmp_E2, true);
 
-    // let tmp_E1 = ornament(D, applyMobiusTrans(MMap12, V0, false), len_rat, 1 - angle_rat);
-    // let E1 = applyMobiusTrans(MMap12, tmp_E1, true);
     let D1 = applyMobiusTrans(MMap12, D, true);
     let E1 = applyMobiusTrans(MMap12, E, true);
     

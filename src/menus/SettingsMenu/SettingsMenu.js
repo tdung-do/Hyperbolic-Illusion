@@ -118,7 +118,7 @@ function TilingSelector() {
                     ringLayerNum: toggled ? 30 : params[0].ringLayerNum,
                     centerCutoff: toggled ? 0.05 : params[0].centerCutoff,
                     nRepeatPerSectV0: toggled ? 2 : params[0].nRepeatPerSectV0,
-                    nRepeatPerSectV2: toggled ? 2 : params[0].nRepeatPerSectV2,
+                    nRepeatPerSectV2: toggled ? 1 : params[0].nRepeatPerSectV2,
                 })
             }
         />

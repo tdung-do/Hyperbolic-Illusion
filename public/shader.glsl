@@ -124,7 +124,7 @@ vec2 cdiv(vec2 a, vec2 b) {
 }
 
 vec2 cexp(vec2 z) { 
-    // Complex exponential
+    // Complex exponential e^{this}}
     return vec2(cos(z.y), sin(z.y)) * exp(z.x);
 }
 
@@ -150,9 +150,10 @@ vec2 remapToDisk(vec2 z) {
             return z;
         case 1:
             // Half-plane model
-            z.y++;
+            // return cdiv(CMP_ONE, z - CMP_I);
             // z.x += time * 2.; //Make the model drift
-            return cdiv(z - CMP_I, z + CMP_I);
+            // z.y++;
+            return cdiv(z, z + 2.*CMP_I);
         case 2:
             // Klein model
             return z / (1. + sqrt(1. - normSq(z)));
